@@ -22,5 +22,6 @@ This project is built using a modern, scalable full-stack architecture:
 * **Package Manager:** **npm**
 
 ---
-To compile the backend run: ./mvnw compile
+To compile the backend execute: ./mvnw compile
+To run execute: ./mvnw spring-boot:run
 
