@@ -15,9 +15,11 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
     List<Property> findByHost(User host);
     List<Property> findByHostId(Long hostId);
     List<Property> findByHostUsername(String username);
-
+    //Adding @EntityGraph in order to fetch the host with the property and not in separate queries (N+1 problem)
+    @EntityGraph(attributePaths = {"host"})
     Page<Property> findAllByDeletedFalse(Pageable pageable);
-
+    //The same as above
+    @EntityGraph(attributePaths = {"host"})
     Page<Property> findByCity(String city, Pageable pageable);
 
 }
