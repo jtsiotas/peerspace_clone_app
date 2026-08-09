@@ -1,4 +1,7 @@
 package com.peerspaceClone.backend.core.exception;
+
+import lombok.Getter;
+
 @Getter
 public class AppGenericException extends Exception {
     private final String code;

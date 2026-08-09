@@ -1,4 +1,5 @@
 package com.peerspaceClone.backend.core.exception;
+
 import org.springframework.validation.BindingResult;
 import lombok.Getter;
 @Getter
