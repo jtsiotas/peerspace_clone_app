@@ -7,8 +7,11 @@ import com.peerspaceClone.backend.dto.UserUpdateDTO;
 import com.peerspaceClone.backend.dto.PropertyInsertDTO;
 import com.peerspaceClone.backend.dto.PropertyReadOnlyDTO;
 import com.peerspaceClone.backend.dto.PropertyUpdateDTO;
+import com.peerspaceClone.backend.dto.BookingInsertDTO;
+import com.peerspaceClone.backend.dto.BookingReadOnlyDTO;
 import com.peerspaceClone.backend.model.User;
 import com.peerspaceClone.backend.model.Property;
+import com.peerspaceClone.backend.model.Booking;
 
 @Component
 public class Mapper {
@@ -95,5 +98,36 @@ public class Mapper {
         property.setMinHours(dto.minHours());
         property.setMaxHours(dto.maxHours());
         property.setType(dto.type());
+    }
+
+    public Booking mapToBookingEntity(BookingInsertDTO dto) {
+        Booking booking = new Booking();
+        booking.setStartDatetime(dto.startDatetime());
+        booking.setEndDatetime(dto.endDatetime());
+        return booking;
+    }
+
+    public BookingReadOnlyDTO mapToBookingReadOnlyDTO(Booking booking) {
+        return new BookingReadOnlyDTO(
+            booking.getId(),
+            booking.getProperty() != null ? booking.getProperty().getId() : null,
+            booking.getProperty() != null ? booking.getProperty().getTitle() : null,
+            booking.getGuest() != null ? booking.getGuest().getId() : null,
+            booking.getGuest() != null ? booking.getGuest().getUsername() : null,
+            booking.getStartDatetime(),
+            booking.getEndDatetime(),
+            booking.getTotalHours(),
+            booking.getPropertyRate(),
+            booking.getSubtotal(),
+            booking.getHostFee(),
+            booking.getGuestFee(),
+            booking.getTotalAmount(),
+            booking.getHostPayout(),
+            booking.getStatus(),
+            booking.getCancellationPolicy(),
+            booking.getCanceledBy(),
+            booking.getCancellationDate(),
+            booking.getCancelationReason()
+        );
     }
 }
