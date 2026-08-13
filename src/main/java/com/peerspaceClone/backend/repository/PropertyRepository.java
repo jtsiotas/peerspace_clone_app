@@ -13,13 +13,31 @@ import com.peerspaceClone.backend.model.User;
 
 public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSpecificationExecutor<Property> {
     List<Property> findByHost(User host);
+    
+    @EntityGraph(attributePaths = {"host"})
     List<Property> findByHostId(Long hostId);
+
+    @EntityGraph(attributePaths = {"host"})
+    List<Property> findByHostIdAndDeletedFalse(Long hostId);
+
     List<Property> findByHostUsername(String username);
+
+    @Override
+    @EntityGraph(attributePaths = {"host"})
+    Optional<Property> findById(Long id);
+
+    @EntityGraph(attributePaths = {"host"})
+    Optional<Property> findByIdAndDeletedFalse(Long id);
+
+    Optional<Property> findByTitle(String title);
+    boolean existsByTitle(String title);
+    boolean existsByAddress(String address);
+
     //Adding @EntityGraph in order to fetch the host with the property and not in separate queries (N+1 problem)
     @EntityGraph(attributePaths = {"host"})
     Page<Property> findAllByDeletedFalse(Pageable pageable);
+
     //The same as above
     @EntityGraph(attributePaths = {"host"})
     Page<Property> findByCity(String city, Pageable pageable);
-
 }
