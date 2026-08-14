@@ -5,5 +5,6 @@ import com.peerspaceClone.backend.model.Payment;
 import java.util.Optional;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    Optional<Payment> findByBookingId(Long bookingId);
+    Optional<Payment> findByIdAndDeletedFalse(Long id);
+    Optional<Payment> findByBookingIdAndDeletedFalse(Long bookingId);
 }

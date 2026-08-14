@@ -15,12 +15,15 @@ import com.peerspaceClone.backend.dto.MessageInsertDTO;
 import com.peerspaceClone.backend.dto.MessageReadOnlyDTO;
 import com.peerspaceClone.backend.dto.AmenityInsertDTO;
 import com.peerspaceClone.backend.dto.AmenityReadOnlyDTO;
+import com.peerspaceClone.backend.dto.PaymentInsertDTO;
+import com.peerspaceClone.backend.dto.PaymentReadOnlyDTO;
 import com.peerspaceClone.backend.model.User;
 import com.peerspaceClone.backend.model.Property;
 import com.peerspaceClone.backend.model.Booking;
 import com.peerspaceClone.backend.model.Review;
 import com.peerspaceClone.backend.model.Message;
 import com.peerspaceClone.backend.model.Amenity;
+import com.peerspaceClone.backend.model.Payment;
 
 @Component
 public class Mapper {
@@ -193,6 +196,28 @@ public class Mapper {
             amenity.getId(),
             amenity.getName(),
             amenity.getIconUrl()
+        );
+    }
+
+    public Payment mapToPaymentEntity(PaymentInsertDTO dto) {
+        Payment payment = new Payment();
+        payment.setAmount(dto.amount());
+        payment.setCurrency(dto.currency());
+        payment.setMethod(dto.method());
+        return payment;
+    }
+
+    public PaymentReadOnlyDTO mapToPaymentReadOnlyDTO(Payment payment) {
+        return new PaymentReadOnlyDTO(
+            payment.getId(),
+            payment.getBooking() != null ? payment.getBooking().getId() : null,
+            payment.getAmount(),
+            payment.getCurrency(),
+            payment.getStatus() != null ? payment.getStatus().name() : null,
+            payment.getMethod(),
+            payment.getPaidAt(),
+            payment.getRefundedAt(),
+            payment.getRefundAmount()
         );
     }
 }
