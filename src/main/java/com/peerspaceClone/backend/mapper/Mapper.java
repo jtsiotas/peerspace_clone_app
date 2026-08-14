@@ -9,9 +9,12 @@ import com.peerspaceClone.backend.dto.PropertyReadOnlyDTO;
 import com.peerspaceClone.backend.dto.PropertyUpdateDTO;
 import com.peerspaceClone.backend.dto.BookingInsertDTO;
 import com.peerspaceClone.backend.dto.BookingReadOnlyDTO;
+import com.peerspaceClone.backend.dto.ReviewInsertDTO;
+import com.peerspaceClone.backend.dto.ReviewReadOnlyDTO;
 import com.peerspaceClone.backend.model.User;
 import com.peerspaceClone.backend.model.Property;
 import com.peerspaceClone.backend.model.Booking;
+import com.peerspaceClone.backend.model.Review;
 
 @Component
 public class Mapper {
@@ -128,6 +131,30 @@ public class Mapper {
             booking.getCanceledBy(),
             booking.getCancellationDate(),
             booking.getCancelationReason()
+        );
+     }
+
+    public Review mapToReviewEntity(ReviewInsertDTO dto) {
+        Review review = new Review();
+        review.setRating(dto.rating());
+        review.setComment(dto.comment());
+        if (dto.isPublic() != null) {
+            review.setIsPublic(dto.isPublic());
+        }
+        return review;
+    }
+
+    public ReviewReadOnlyDTO mapToReviewReadOnlyDTO(Review review) {
+        return new ReviewReadOnlyDTO(
+            review.getId(),
+            review.getBooking() != null ? review.getBooking().getId() : null,
+            review.getReviewer() != null ? review.getReviewer().getId() : null,
+            review.getReviewer() != null ? review.getReviewer().getUsername() : null,
+            review.getReviewee() != null ? review.getReviewee().getId() : null,
+            review.getReviewerRole(),
+            review.getRating(),
+            review.getComment(),
+            review.getIsPublic()
         );
     }
 }

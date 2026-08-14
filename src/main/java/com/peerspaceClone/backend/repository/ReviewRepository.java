@@ -5,11 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.peerspaceClone.backend.model.Review;
 import java.util.List;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
-    //Review is @ManyToOne and any review list needs the reviewer so fetch it eagerly to avoid extra queries
-    @EntityGraph(attributePaths={"reviewer"})
-    List<Review> findByBookingId(Long bookingId);
+import java.util.Optional;
 
-    @EntityGraph(attributePaths={"reviewer"})
-    List<Review> findByRevieweeId(Long revieweeId);
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+    
+    @EntityGraph(attributePaths={"reviewer", "booking"})
+    List<Review> findByBookingIdAndDeletedFalse(Long bookingId);
+
+    @EntityGraph(attributePaths={"reviewer", "booking"})
+    List<Review> findByRevieweeIdAndDeletedFalse(Long revieweeId);
+
+    @EntityGraph(attributePaths={"reviewer", "booking"})
+    List<Review> findByBookingPropertyIdAndDeletedFalse(Long propertyId);
+
+    Optional<Review> findByBookingIdAndReviewerIdAndDeletedFalse(Long bookingId, Long reviewerId);
 }
