@@ -13,11 +13,14 @@ import com.peerspaceClone.backend.dto.ReviewInsertDTO;
 import com.peerspaceClone.backend.dto.ReviewReadOnlyDTO;
 import com.peerspaceClone.backend.dto.MessageInsertDTO;
 import com.peerspaceClone.backend.dto.MessageReadOnlyDTO;
+import com.peerspaceClone.backend.dto.AmenityInsertDTO;
+import com.peerspaceClone.backend.dto.AmenityReadOnlyDTO;
 import com.peerspaceClone.backend.model.User;
 import com.peerspaceClone.backend.model.Property;
 import com.peerspaceClone.backend.model.Booking;
 import com.peerspaceClone.backend.model.Review;
 import com.peerspaceClone.backend.model.Message;
+import com.peerspaceClone.backend.model.Amenity;
 
 @Component
 public class Mapper {
@@ -175,6 +178,21 @@ public class Mapper {
             message.getSender() != null ? message.getSender().getUsername() : null,
             message.getContent(),
             message.getCreatedAt()
+        );
+    }
+
+    public Amenity mapToAmenityEntity(AmenityInsertDTO dto) {
+        Amenity amenity = new Amenity();
+        amenity.setName(dto.name());
+        amenity.setIconUrl(dto.iconUrl());
+        return amenity;
+    }
+
+    public AmenityReadOnlyDTO mapToAmenityReadOnlyDTO(Amenity amenity) {
+        return new AmenityReadOnlyDTO(
+            amenity.getId(),
+            amenity.getName(),
+            amenity.getIconUrl()
         );
     }
 }
