@@ -11,10 +11,13 @@ import com.peerspaceClone.backend.dto.BookingInsertDTO;
 import com.peerspaceClone.backend.dto.BookingReadOnlyDTO;
 import com.peerspaceClone.backend.dto.ReviewInsertDTO;
 import com.peerspaceClone.backend.dto.ReviewReadOnlyDTO;
+import com.peerspaceClone.backend.dto.MessageInsertDTO;
+import com.peerspaceClone.backend.dto.MessageReadOnlyDTO;
 import com.peerspaceClone.backend.model.User;
 import com.peerspaceClone.backend.model.Property;
 import com.peerspaceClone.backend.model.Booking;
 import com.peerspaceClone.backend.model.Review;
+import com.peerspaceClone.backend.model.Message;
 
 @Component
 public class Mapper {
@@ -155,6 +158,23 @@ public class Mapper {
             review.getRating(),
             review.getComment(),
             review.getIsPublic()
+        );
+    }
+
+    public Message mapToMessageEntity(MessageInsertDTO dto) {
+        Message message = new Message();
+        message.setContent(dto.content());
+        return message;
+    }
+
+    public MessageReadOnlyDTO mapToMessageReadOnlyDTO(Message message) {
+        return new MessageReadOnlyDTO(
+            message.getId(),
+            message.getBooking() != null ? message.getBooking().getId() : null,
+            message.getSender() != null ? message.getSender().getId() : null,
+            message.getSender() != null ? message.getSender().getUsername() : null,
+            message.getContent(),
+            message.getCreatedAt()
         );
     }
 }

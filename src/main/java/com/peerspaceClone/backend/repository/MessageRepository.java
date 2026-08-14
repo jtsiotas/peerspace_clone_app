@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    @EntityGraph(attributePaths = {"sender"})
-    List<Message> findByBookingId(Long bookingId);
-    
+    @EntityGraph(attributePaths = {"sender", "booking"})
+    List<Message> findByBookingIdAndDeletedFalseOrderByCreatedAtAsc(Long bookingId);
 }
