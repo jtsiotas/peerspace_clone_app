@@ -8,9 +8,13 @@ import com.peerspaceClone.backend.model.BlockedSlot;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface BlockedSlotRepository extends JpaRepository<BlockedSlot, Long> {
-    List<BlockedSlot> findByPropertyId(Long propertyId);
+import java.util.Optional;
 
-    @Query("SELECT COUNT(bs) > 0 FROM BlockedSlot bs WHERE bs.property.id = :propertyId AND bs.startTime < :end AND bs.endTime > :start")
+public interface BlockedSlotRepository extends JpaRepository<BlockedSlot, Long> {
+    Optional<BlockedSlot> findByIdAndDeletedFalse(Long id);
+
+    List<BlockedSlot> findByPropertyIdAndDeletedFalse(Long propertyId);
+
+    @Query("SELECT COUNT(bs) > 0 FROM BlockedSlot bs WHERE bs.property.id = :propertyId AND bs.deleted = false AND bs.startTime < :end AND bs.endTime > :start")
     boolean existsOverlappingBlockedSlot(@Param("propertyId") Long propertyId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 }

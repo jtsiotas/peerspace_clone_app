@@ -17,6 +17,8 @@ import com.peerspaceClone.backend.dto.AmenityInsertDTO;
 import com.peerspaceClone.backend.dto.AmenityReadOnlyDTO;
 import com.peerspaceClone.backend.dto.PaymentInsertDTO;
 import com.peerspaceClone.backend.dto.PaymentReadOnlyDTO;
+import com.peerspaceClone.backend.dto.BlockedSlotInsertDTO;
+import com.peerspaceClone.backend.dto.BlockedSlotReadOnlyDTO;
 import com.peerspaceClone.backend.model.User;
 import com.peerspaceClone.backend.model.Property;
 import com.peerspaceClone.backend.model.Booking;
@@ -24,6 +26,7 @@ import com.peerspaceClone.backend.model.Review;
 import com.peerspaceClone.backend.model.Message;
 import com.peerspaceClone.backend.model.Amenity;
 import com.peerspaceClone.backend.model.Payment;
+import com.peerspaceClone.backend.model.BlockedSlot;
 
 @Component
 public class Mapper {
@@ -218,6 +221,24 @@ public class Mapper {
             payment.getPaidAt(),
             payment.getRefundedAt(),
             payment.getRefundAmount()
+        );
+    }
+
+    public BlockedSlot mapToBlockedSlotEntity(BlockedSlotInsertDTO dto) {
+        BlockedSlot blockedSlot = new BlockedSlot();
+        blockedSlot.setStartTime(dto.startTime());
+        blockedSlot.setEndTime(dto.endTime());
+        blockedSlot.setReason(dto.reason());
+        return blockedSlot;
+    }
+
+    public BlockedSlotReadOnlyDTO mapToBlockedSlotReadOnlyDTO(BlockedSlot blockedSlot) {
+        return new BlockedSlotReadOnlyDTO(
+            blockedSlot.getId(),
+            blockedSlot.getProperty() != null ? blockedSlot.getProperty().getId() : null,
+            blockedSlot.getStartTime(),
+            blockedSlot.getEndTime(),
+            blockedSlot.getReason()
         );
     }
 }
