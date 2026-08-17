@@ -46,6 +46,12 @@ public class UserService implements IUserService {
             User user = mapper.mapToUserEntity(userInsertDto);
             user.setPassword(passwordEncoder.encode(userInsertDto.password()));
 
+            if (userInsertDto.roleIds() != null) {
+                for (Long roleId : userInsertDto.roleIds()) {
+                    roleRepository.findById(roleId).ifPresent(user::addRole);
+                }
+            }
+
             userRepository.save(user);
             log.info("User with username " + userInsertDto.username() + " saved successfully");
             return mapper.mapToUserReadOnlyDTO(user);

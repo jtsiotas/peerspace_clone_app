@@ -1,6 +1,8 @@
 package com.peerspaceClone.backend.mapper;
 
 import org.springframework.stereotype.Component;
+import java.util.stream.Collectors;
+import com.peerspaceClone.backend.model.Role;
 import com.peerspaceClone.backend.dto.UserInsertDTO;
 import com.peerspaceClone.backend.dto.UserReadOnlyDTO;
 import com.peerspaceClone.backend.dto.UserUpdateDTO;
@@ -48,7 +50,9 @@ public class Mapper {
             user.getEmail(), 
             user.getFirstname(), 
             user.getLastname(), 
-            user.getAllRoles()
+            user.getAllRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toSet())
         );
     }
 

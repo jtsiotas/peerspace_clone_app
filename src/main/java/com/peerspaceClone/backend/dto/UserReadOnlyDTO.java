@@ -2,8 +2,6 @@ package com.peerspaceClone.backend.dto;
 
 import java.util.Set;
 import java.util.UUID;
-import com.peerspaceClone.backend.model.Role;
-
 public record UserReadOnlyDTO(
     Long id,
     UUID uuid,
@@ -11,7 +9,7 @@ public record UserReadOnlyDTO(
     String email,
     String firstName,
     String lastName,
-    Set<Role> roles
+    Set<String> roles
 ) {
     public UUID getUuid() {
         return uuid;
