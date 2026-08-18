@@ -54,4 +54,11 @@ public class GlobalExceptionHandler {
         ApiErrorResponse response = new ApiErrorResponse(ex.getCode(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiErrorResponse> handleHttpMessageNotReadableException(org.springframework.http.converter.HttpMessageNotReadableException ex) {
+        log.error("HTTP Message not readable: {}", ex.getMessage());
+        ApiErrorResponse response = new ApiErrorResponse("MALFORMED_JSON", "The request body contains invalid/malformed JSON, or is missing required primitive values (like int fields)");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 }

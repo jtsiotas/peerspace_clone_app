@@ -57,10 +57,10 @@ public class Property extends AbstractEntity {
     @Column(nullable = false)
     private String timezone;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 11, scale = 8)
     private BigDecimal longitude;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 10, scale = 8)
     private BigDecimal latitude;
 
     private int sizeSqm;
