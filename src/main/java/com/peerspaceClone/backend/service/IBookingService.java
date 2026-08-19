@@ -22,4 +22,7 @@ public interface IBookingService {
 
     BookingReadOnlyDTO cancelBooking(Long id, BookingCancelDTO bookingCancelDto) 
             throws EntityNotFoundException, EntityInvalidArgumentException;
+
+    BookingReadOnlyDTO completeBooking(Long id) 
+            throws EntityNotFoundException, EntityInvalidArgumentException;
 }

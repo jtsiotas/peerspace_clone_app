@@ -195,4 +195,29 @@ public class BookingService implements IBookingService {
             throw e;
         }
     }
+
+    @Override
+    @Transactional(rollbackFor = {EntityNotFoundException.class, EntityInvalidArgumentException.class})
+    public BookingReadOnlyDTO completeBooking(Long id) throws EntityNotFoundException, EntityInvalidArgumentException {
+        try {
+            Booking booking = bookingRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Booking", "Booking with id=" + id + " not found"));
+
+            if (booking.getStatus() == BookingStatus.CANCELLED) {
+                throw new EntityInvalidArgumentException("Booking", "Cancelled bookings cannot be completed");
+            }
+
+            booking.setStatus(BookingStatus.COMPLETED);
+            bookingRepository.save(booking);
+            log.info("Booking with ID: " + id + " has been completed successfully");
+            return mapper.mapToBookingReadOnlyDTO(booking);
+
+        } catch (EntityNotFoundException | EntityInvalidArgumentException e) {
+            log.error("Complete booking failed: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("Complete booking failed due to an unexpected error");
+            throw e;
+        }
+    }
 }

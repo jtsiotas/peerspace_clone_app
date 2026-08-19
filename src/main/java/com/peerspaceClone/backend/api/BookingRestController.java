@@ -82,4 +82,11 @@ public class BookingRestController {
         BookingReadOnlyDTO cancelledBooking = bookingService.cancelBooking(id, bookingCancelDto);
         return ResponseEntity.ok(cancelledBooking);
     }
+
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<BookingReadOnlyDTO> completeBooking(@PathVariable Long id) 
+            throws EntityNotFoundException, EntityInvalidArgumentException {
+        BookingReadOnlyDTO completedBooking = bookingService.completeBooking(id);
+        return ResponseEntity.ok(completedBooking);
+    }
 }
