@@ -56,6 +56,13 @@ Once the application is running, open your browser and navigate to:
 
 You can use the **Swagger UI** to inspect all controllers, view details about expected request and response bodies (schemas), and test endpoints directly inside your browser.
 
+### 🔑 How to test protected endpoints (JWT Auth) in Swagger UI:
+1. **Register/Login:** Under the `authentication-rest-controller` section, make a `POST /api/v1/auth/login` request using valid user credentials to get a JSON response containing the `"token"` value.
+2. **Copy token:** Copy the returned token string (excluding quotes).
+3. **Authorize:** Click the green **`Authorize`** button at the top right of the Swagger UI.
+4. **Paste and Save:** Paste the token into the Value field, click **Authorize**, and close the modal.
+5. **Execute:** You will see a closed lock icon next to all secured endpoints. You can now execute any request (like creating a booking or property) and Swagger will automatically add your JWT token in the headers!
+
 ---
 
 ## 🧪 API Testing & Verification
