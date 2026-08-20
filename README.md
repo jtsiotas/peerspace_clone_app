@@ -21,11 +21,44 @@ This project is built using a modern, scalable full-stack architecture:
 * **Frontend:** **React.js**
 * **Package Manager:** **npm**
 
----
-To compile the backend execute: ./mvnw compile
-To run execute: ./mvnw spring-boot:run
+## ⚙️ How to Build & Run
 
-## API Testing & Verification
+### Method 1: Running Natively
+1. **Build the project:**
+   ```bash
+   ./mvnw clean package -DskipTests
+   ```
+2. **Run the Spring Boot application:**
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+### Method 2: Running with Docker (Recommended)
+This launches both the application and the PostgreSQL database in isolated containers.
+1. **Build the jar:**
+   ```bash
+   ./mvnw clean package -DskipTests
+   ```
+2. **Launch with Docker Compose:**
+   ```bash
+   docker compose up --build
+   ```
+
+---
+
+## 📖 API Documentation (Swagger)
+
+The project includes built-in interactive Swagger UI documentation powered by **Springdoc OpenAPI**. 
+
+Once the application is running, open your browser and navigate to:
+* **Interactive UI:** [http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html)
+* **Raw JSON Specification:** [http://localhost:8082/v3/api-docs](http://localhost:8082/v3/api-docs)
+
+You can use the **Swagger UI** to inspect all controllers, view details about expected request and response bodies (schemas), and test endpoints directly inside your browser.
+
+---
+
+## 🧪 API Testing & Verification
 
 This guide describes how to test all of the Peerspace/Airbnb backend endpoints on your local server.
 
