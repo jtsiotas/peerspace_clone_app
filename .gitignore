@@ -34,3 +34,7 @@ build/
 notes/*
 docs/*
 logs/
+
+# Local Environment Secret Files
+.env
+*.env
