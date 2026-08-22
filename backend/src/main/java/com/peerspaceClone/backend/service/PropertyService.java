@@ -185,4 +185,11 @@ public class PropertyService implements IPropertyService {
             throw e;
         }
     }
+
+    @Override
+    public List<PropertyReadOnlyDTO> getAllPropertiesAndDeletedFalse() {
+        return propertyRepository.findAllByDeletedFalse().stream()
+                .map(mapper::mapToPropertyReadOnlyDTO)
+                .toList();
+    }
 }

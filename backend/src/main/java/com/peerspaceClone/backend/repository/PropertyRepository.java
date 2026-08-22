@@ -37,6 +37,9 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
     @EntityGraph(attributePaths = {"host"})
     Page<Property> findAllByDeletedFalse(Pageable pageable);
 
+    @EntityGraph(attributePaths = {"host"})
+    List<Property> findAllByDeletedFalse();
+
     //The same as above
     @EntityGraph(attributePaths = {"host"})
     Page<Property> findByCity(String city, Pageable pageable);

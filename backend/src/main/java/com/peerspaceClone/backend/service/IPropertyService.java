@@ -17,6 +17,7 @@ public interface IPropertyService {
 
     List<PropertyReadOnlyDTO> getPropertiesByHostId(Long hostId) throws EntityNotFoundException;
     List<PropertyReadOnlyDTO> getPropertiesByHostIdAndDeletedFalse(Long hostId) throws EntityNotFoundException;
+    List<PropertyReadOnlyDTO> getAllPropertiesAndDeletedFalse();
 
     PropertyReadOnlyDTO updateProperty(Long id, PropertyUpdateDTO propertyUpdateDTO) throws EntityNotFoundException, EntityAlreadyExistsException, EntityInvalidArgumentException;
     PropertyReadOnlyDTO deletePropertyById(Long id) throws EntityNotFoundException;

@@ -47,6 +47,12 @@ public class PropertyRestController {
         return ResponseEntity.created(location).body(propertyReadOnlyDTO);
     }
 
+    @GetMapping
+    public ResponseEntity<java.util.List<PropertyReadOnlyDTO>> getAllProperties() {
+        java.util.List<PropertyReadOnlyDTO> properties = propertyService.getAllPropertiesAndDeletedFalse();
+        return ResponseEntity.ok(properties);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PropertyReadOnlyDTO> getPropertyById(@PathVariable Long id) throws EntityNotFoundException {
         PropertyReadOnlyDTO property = propertyService.getPropertyByIdAndDeletedFalse(id);
